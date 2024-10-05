@@ -48,11 +48,14 @@ export default function RootLayout({
                                             size="sm"
                                             variant={"outline"}
                                         >
-                                            <Link href={"/dashboard"}>
-                                                SAM dashboard
-                                            </Link>
+                                            <Link href={"/"}>Home</Link>
                                         </Button>
                                     </div>
+                                    <Button asChild size="sm">
+                                        <Link href={"/dashboard"}>
+                                            SAM Dashboard
+                                        </Link>
+                                    </Button>
                                     {/* {!hasEnvVars ? (
                                         <EnvVarWarning />
                                     ) : (
