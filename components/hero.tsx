@@ -1,44 +1,44 @@
-import NextLogo from "./next-logo";
-import SupabaseLogo from "./supabase-logo";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
-export default function Header() {
-  return (
-    <div className="flex flex-col gap-16 items-center">
-      <div className="flex gap-8 justify-center items-center">
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <SupabaseLogo />
-        </a>
-        <span className="border-l rotate-45 h-6" />
-        <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
-          <NextLogo />
-        </a>
-      </div>
-      <h1 className="sr-only">Supabase and Next.js Starter Template</h1>
-      <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center">
-        The fastest way to build apps with{" "}
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Supabase
-        </a>{" "}
-        and{" "}
-        <a
-          href="https://nextjs.org/"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Next.js
-        </a>
-      </p>
-      <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
-    </div>
-  );
+export default function Component() {
+    return (
+        <section className="w-full py-8 md:py-12 lg:py-16 xl:py-24 bg-background">
+            <div className="container px-4 md:px-6">
+                <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
+                    <div className="flex flex-col justify-center space-y-4">
+                        <div className="space-y-2">
+                            <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                                Species Assessment Mapper (SAM)
+                            </h1>
+                            <p className="max-w-[600px] text-muted-foreground md:text-xl">
+                                Revolutionizing invasive species detection and
+                                management in Singapore's parks
+                            </p>
+                        </div>
+                        <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                            <Link href="/dashboard">
+                                <Button size="lg">Visit Dashboard</Button>
+                            </Link>
+                            <Link href="#features">
+                                <Button variant="outline" size="lg">
+                                    Learn More
+                                </Button>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="flex items-center justify-center">
+                        <Image
+                            alt="SAM Robot"
+                            className="aspect-[4/3] overflow-hidden rounded-xl object-cover object-center"
+                            height="400"
+                            src="https://i.redd.it/jq6l5lqqhfxa1.jpg"
+                            width="600"
+                        />
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
 }
