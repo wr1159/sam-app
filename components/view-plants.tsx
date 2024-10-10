@@ -43,6 +43,24 @@ export default function ViewPlants() {
     const [submissions, setSubmissions] = useState<Plant[]>([]);
 
     useEffect(() => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                console.log("Latitude:", position.coords.latitude);
+                console.log("Longitude:", position.coords.longitude);
+            },
+            (error) => {
+                if (error.code === error.PERMISSION_DENIED) {
+                    console.error("User denied the request for Geolocation.");
+                } else {
+                    console.error("Error getting location:", error);
+                }
+            },
+            {
+                enableHighAccuracy: true, // Optional: more accurate GPS, but may take longer
+                timeout: 5000, // Optional: time to wait before giving up
+                maximumAge: 0, // Optional: avoid cached results
+            }
+        );
         const fetchSubmissions = async () => {
             const res = await fetch("/api/plants");
             const data: Plant[] = await res.json();
