@@ -1,10 +1,44 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Popup, CircleMarker } from "react-leaflet";
+import {
+    MapContainer,
+    TileLayer,
+    Popup,
+    CircleMarker,
+    useMap,
+} from "react-leaflet";
 import { Plant } from "@/types/plants";
 import "leaflet/dist/leaflet.css";
 import MarkerClusterGroup from "react-leaflet-cluster";
+
+// User Location Marker Component
+function UserLocationMarker() {
+    const [position, setPosition] = useState<[number, number] | null>(null);
+    const map = useMap();
+
+    useEffect(() => {
+        map.locate().on("locationfound", function (e) {
+            setPosition([e.latlng.lat, e.latlng.lng]);
+            map.flyTo(e.latlng, map.getZoom()); // Center the map to the user's location
+        });
+    }, [map]);
+
+    return (
+        position && (
+            <CircleMarker
+                center={position}
+                radius={10}
+                color="red"
+                fillColor="red"
+                fillOpacity={0.7}
+            >
+                <Popup>You are here</Popup>
+            </CircleMarker>
+        )
+    );
+}
+
 export default function ViewPlants() {
     const [submissions, setSubmissions] = useState<Plant[]>([]);
 
@@ -21,7 +55,7 @@ export default function ViewPlants() {
         <div className="mx-auto p-4">
             <h1 className="text-2xl font-bold mb-4">Plant Submissions</h1>
             <MapContainer
-                center={[1.3521, 103.8198]}
+                center={[1.3521, 103.8198]} // Default center (Singapore)
                 zoom={5}
                 className="h-[60vh] mb-8 w-[80vw]"
                 worldCopyJump={true} // Enable map wrapping
@@ -29,6 +63,7 @@ export default function ViewPlants() {
                 minZoom={2} // Optional: Limit min zoom level
             >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                <UserLocationMarker />
                 <MarkerClusterGroup>
                     {submissions.map((submission) => (
                         <CircleMarker
